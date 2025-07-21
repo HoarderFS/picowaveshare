@@ -20,7 +20,7 @@ def find_pico_port():
     port = get_test_port()
     if not port:
         return None
-        
+
     try:
         ser = serial.Serial(port, 115200, timeout=1)
         print("Found Pico at " + port)

@@ -43,7 +43,12 @@ class RelayController:
     - Context manager support for automatic cleanup
     """
 
-    def __init__(self, port: str, baudrate: int = DEFAULT_BAUDRATE, timeout: float = DEFAULT_TIMEOUT):
+    def __init__(
+        self,
+        port: str,
+        baudrate: int = DEFAULT_BAUDRATE,
+        timeout: float = DEFAULT_TIMEOUT,
+    ):
         """
         Initialize relay controller
 

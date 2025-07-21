@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """Test SET command on hardware"""
 
-import os
 import sys
 import time
+from pathlib import Path
 
 import serial
 
 # Add parent directory to path for test utils
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from tests.test_utils import get_test_port
 
 PORT = get_test_port()
@@ -21,7 +21,7 @@ def test_set_command():
         print("ERROR: No relay board found!")
         print("Connect a board or set RELAY_PORT environment variable")
         return 1
-        
+
     print(f"Testing SET command on hardware at {PORT}...")
 
     # Wait for Pico to boot

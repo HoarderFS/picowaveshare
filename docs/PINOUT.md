@@ -59,11 +59,11 @@
 | Onboard LED | GP25 | Internal | Pico's built-in LED |
 | BOOTSEL | N/A | N/A | Hold during power-up for USB boot |
 
-### UART Communication Pins (Default)
+### Available GPIO Pins
 | Function | GPIO Pin | Pico Pin Number | Notes |
 |----------|----------|-----------------|-------|
-| UART0 TX | GP0 | Pin 1 | Transmit from Pico |
-| UART0 RX | GP1 | Pin 2 | Receive to Pico |
+| GP0 | GPIO 0 | Pin 1 | Available for user expansion |
+| GP1 | GPIO 1 | Pin 2 | Available for user expansion |
 | GND | GND | Pin 3,8,13,18,23,28,33,38 | Common ground |
 
 ### Power Pins
@@ -192,9 +192,8 @@ for color, pin_num in RGB_PINS.items():
 # Initialize onboard LED
 onboard_led = Pin(ONBOARD_LED_PIN, Pin.OUT)
 
-# Initialize UART
-from machine import UART
-uart = UART(0, baudrate=115200, tx=Pin(0), rx=Pin(1))
+# Note: Communication is via USB CDC serial, not hardware UART
+# GP0 and GP1 are available for user expansion
 
 # Initialize I2C (if needed)
 i2c0 = I2C(0, sda=Pin(I2C0_PINS['sda']), scl=Pin(I2C0_PINS['scl']))

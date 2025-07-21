@@ -74,7 +74,9 @@ class RelayController:
         # Check for auto-load of saved states
         if get_auto_load_enabled():
             saved_states = load_relay_states()
-            if saved_states and saved_states != "00000000":  # Only load if not all zeros
+            if (
+                saved_states and saved_states != "00000000"
+            ):  # Only load if not all zeros
                 try:
                     self.set_states(saved_states)
                     if DEBUG:
@@ -209,7 +211,6 @@ class RelayController:
             print(f"ERROR: Failed to turn off relay {relay_num}: {e}")
             return False
 
-
     def get_relay_state(self, relay_num):
         """
         Get the current state of a specific relay.
@@ -321,7 +322,7 @@ class RelayController:
         # Convert from storage format (relay 1 first) to pattern format (relay 8 first)
         # Reverse the string to match set_pattern's expectation
         # MicroPython doesn't support [::-1], so reverse manually
-        pattern = ''.join(reversed(states))
+        pattern = "".join(reversed(states))
         return self.set_pattern(pattern)
 
     def set_pattern(self, pattern):

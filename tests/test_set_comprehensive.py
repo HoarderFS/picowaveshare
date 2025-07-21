@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """Comprehensive SET command test"""
 
-import os
 import sys
 import time
+from pathlib import Path
 
 import serial
 
 # Add parent directory to path for test utils
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from tests.test_utils import get_test_port
 
 

@@ -39,13 +39,6 @@ RGB_LED_PIN = 13  # GP13 - NeoPixel control
 ONBOARD_LED_PIN = 25  # GP25 - Standard Pico onboard LED
 USER_BUTTON_PIN = 9  # GP9 - User button (if present)
 
-# UART configuration
-UART_NUM = 0  # UART0
-UART_TX_PIN = 0  # GP0
-UART_RX_PIN = 1  # GP1
-UART_BAUDRATE = 115200  # Default baud rate
-UART_TIMEOUT = 1000  # Timeout in milliseconds
-
 # Relay control constants
 RELAY_ON = 1  # Logic level for relay ON
 RELAY_OFF = 0  # Logic level for relay OFF
@@ -153,7 +146,7 @@ def get_relay_from_pin(pin_num):
 
 # Debug configuration
 DEBUG = False  # Enable debug output
-DEBUG_UART = False  # Enable UART debug messages
+DEBUG_SERIAL = False  # Enable serial debug messages
 DEBUG_COMMANDS = False  # Enable command logging
 DEBUG_TIMING = False  # Enable timing debug (verbose)
 
@@ -170,7 +163,6 @@ FEATURES = {
 
 # Default relay states on startup
 DEFAULT_RELAY_STATE = [RELAY_OFF] * RELAY_COUNT  # All relays off
-
 
 
 def get_board_uid():

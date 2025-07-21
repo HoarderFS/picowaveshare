@@ -19,7 +19,7 @@ ignore = [
 
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["S101"]  # Allow assert in tests
-"micropython/*" = ["PTH123"]  # MicroPython doesn't have pathlib
+"micropython/*" = ["PTH123", "SIM105"]  # MicroPython doesn't have pathlib or contextlib
 "tests/hardware_verification/verify_all_pins.py" = ["PTH123"]  # MicroPython script
 
 [tool.pytest.ini_options]

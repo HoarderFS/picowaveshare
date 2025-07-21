@@ -87,7 +87,7 @@ def main():
                     # Read available data
                     char = sys.stdin.read(1)
                     if char:
-                        if char == '\n' or char == '\r':
+                        if char == "\n" or char == "\r":
                             # Process complete line
                             if buffer:
                                 try:

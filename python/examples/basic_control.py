@@ -13,14 +13,14 @@ from waveshare_relay import RelayController, RelayError, find_relay_board
 
 # Configuration
 # Try to get port from environment variable, otherwise use auto-discovery
-SERIAL_PORT = os.environ.get('RELAY_PORT') or find_relay_board()
+SERIAL_PORT = os.environ.get("RELAY_PORT") or find_relay_board()
 BAUDRATE = 115200
 
 
 def main():
     """Main example function"""
     print("=== Waveshare Pico Relay B - Basic Control Example ===")
-    
+
     # Check if we found a port
     if not SERIAL_PORT:
         print("ERROR: No relay board found!")

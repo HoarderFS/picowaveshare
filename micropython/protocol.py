@@ -209,7 +209,9 @@ class ProtocolParser:
                 if not is_valid_relay_number(relay_num):
                     return False, "INVALID_RELAY_NUMBER"
                 duration_ms = int(parameters[1])
-                if duration_ms <= 0 or duration_ms > 5000:  # Max 5 seconds (watchdog safe)
+                if (
+                    duration_ms <= 0 or duration_ms > 5000
+                ):  # Max 5 seconds (watchdog safe)
                     return False, "INVALID_PARAMETER"
             except ValueError:
                 return False, "INVALID_PARAMETER"
@@ -257,7 +259,9 @@ class ProtocolParser:
                 duration_ms = int(parameters[1])
                 if frequency < 50 or frequency > 20000:  # Human hearing range
                     return False, "INVALID_PARAMETER"
-                if duration_ms <= 0 or duration_ms > 5000:  # Max 5 seconds (watchdog safe)
+                if (
+                    duration_ms <= 0 or duration_ms > 5000
+                ):  # Max 5 seconds (watchdog safe)
                     return False, "INVALID_PARAMETER"
             except ValueError:
                 return False, "INVALID_PARAMETER"
@@ -562,7 +566,7 @@ class ProtocolParser:
             binary_states = self.relay_controller.get_status_binary()
             # Reverse to storage format (relay 1 first) for consistency
             # MicroPython doesn't support [::-1], so reverse manually
-            storage_states = ''.join(reversed(binary_states))
+            storage_states = "".join(reversed(binary_states))
             if save_relay_states(storage_states):
                 return self.format_success_response("SAVED")
             else:

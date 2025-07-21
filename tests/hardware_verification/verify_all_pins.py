@@ -8,7 +8,7 @@ import contextlib
 import json
 import time
 
-from machine import PWM, UART, Pin
+from machine import PWM, Pin
 
 
 class PinVerifier:
@@ -18,7 +18,6 @@ class PinVerifier:
             "test_date": str(time.time()),
             "relays": {},
             "peripherals": {},
-            "uart": {},
             "issues": [],
         }
 
@@ -146,35 +145,6 @@ class PinVerifier:
         else:
             self.results["peripherals"]["rgb_led"] = "NOT_FOUND"
 
-    def test_uart(self):
-        """Test UART configuration"""
-        print("\n=== TESTING UART ===")
-
-        try:
-            print("Testing UART0 on GP0/GP1...", end="")
-            uart = UART(0, baudrate=115200, tx=Pin(0), rx=Pin(1))
-
-            # Write test data
-            uart.write(b"TEST")
-            time.sleep(0.1)
-
-            print(" OK")
-            self.results["uart"]["uart0"] = {
-                "tx_pin": 0,
-                "rx_pin": 1,
-                "baudrate": 115200,
-                "status": "OK",
-            }
-        except Exception as e:
-            print(f" FAIL ({e})")
-            self.results["uart"]["uart0"] = {
-                "tx_pin": 0,
-                "rx_pin": 1,
-                "status": "FAIL",
-                "error": str(e),
-            }
-            self.results["issues"].append(f"UART: {e}")
-
     def generate_report(self):
         """Generate verification report"""
         print("\n" + "=" * 50)
@@ -194,13 +164,6 @@ class PinVerifier:
             if isinstance(info, dict):
                 status = "✓" if info["status"] in ["OK", "PRESENT"] else "✗"
                 print(f"{status} {peripheral}: GP{info['pin']} - {info['status']}")
-
-        print("\n--- UART ---")
-        for uart_name, info in self.results["uart"].items():
-            status = "✓" if info["status"] == "OK" else "✗"
-            print(
-                f"{status} {uart_name}: TX=GP{info['tx_pin']}, RX=GP{info['rx_pin']} - {info['status']}"
-            )
 
         if self.results["issues"]:
             print("\n--- ISSUES FOUND ---")
@@ -227,7 +190,6 @@ class PinVerifier:
 
         self.test_relay_pins()
         self.test_peripherals()
-        self.test_uart()
 
         all_passed = self.generate_report()
 

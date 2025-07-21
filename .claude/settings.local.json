@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(source:*)",
+      "Bash(mpremote connect:*)",
+      "Bash(make lint:*)",
+      "Bash(rm:*)",
+      "Bash(mv:*)",
+      "Bash(ls:*)",
+      "Bash(venv/bin/python -m ruff check:*)"
+    ],
+    "deny": []
+  }
+}

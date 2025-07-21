@@ -2,17 +2,17 @@
 
 ## Overview
 
-The Waveshare Pico Relay B board uses an ASCII-based protocol for serial communication over UART. This protocol provides a simple, human-readable interface for controlling the 8 relays and querying board status.
+The Waveshare Pico Relay B board uses an ASCII-based protocol for serial communication over USB. The board appears as a virtual serial port (CDC) when connected via USB. This protocol provides a simple, human-readable interface for controlling the 8 relays and querying board status.
 
 ## Communication Settings
 
-- **Interface**: UART over USB
-- **Baud Rate**: 115200
+- **Interface**: USB CDC Serial (Virtual COM Port)
+- **Baud Rate**: 115200 (USB CDC - rate is virtual)
 - **Data Bits**: 8
 - **Stop Bits**: 1
 - **Parity**: None
 - **Flow Control**: None
-- **Pins**: GP0 (TX), GP1 (RX)
+- **Connection**: USB Type-C connector on Pico board
 
 ## Command Summary
 

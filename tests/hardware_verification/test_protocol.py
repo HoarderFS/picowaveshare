@@ -42,7 +42,6 @@ def upload_protocol_files(ser):
         "../micropython/config.py",
         "../micropython/relay_controller.py",
         "../micropython/protocol.py",
-        "../micropython/uart_server.py",
     ]
 
     for file_path in files:
@@ -83,13 +82,11 @@ def test_protocol_commands():
     setup_commands = [
         "from relay_controller import RelayController",
         "from protocol import ProtocolParser",
-        "from uart_server import UARTServer",
         "import time",
         "",
         "# Initialize components",
         "relay_ctrl = RelayController()",
         "protocol = ProtocolParser(relay_ctrl)",
-        "uart_srv = UARTServer(relay_ctrl)",
         "",
         "# Test function",
         "def test_command(cmd):",

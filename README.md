@@ -10,7 +10,7 @@ A Python library for controlling the Waveshare Pico Relay B board using MicroPyt
 - **Board**: Waveshare Pico Relay B (8-channel relay board)
 - **MCU**: Raspberry Pi Pico 2 (RP2350)
 - **Relays**: 8 channels, 250VAC/10A or 30VDC/10A rating
-- **Communication**: UART ASCII protocol over USB
+- **Communication**: USB CDC Serial (Virtual COM Port)
 
 ## Features
 
@@ -85,8 +85,8 @@ python tests/hardware_verification/test_relays.py
 # Test peripherals (LED, buzzer, etc.)
 python tests/hardware_verification/test_peripherals.py
 
-# Test UART communication
-python tests/hardware_verification/test_uart.py
+# Test USB serial communication
+python tests/hardware_verification/test_protocol.py
 
 # Run comprehensive pin verification
 python tests/hardware_verification/verify_all_pins.py
@@ -215,8 +215,6 @@ picowaveshare/
 | Relay 8 | GP14 | Output |
 | Buzzer | GP6 | PWM Output |
 | RGB LED | GP13 | NeoPixel |
-| UART TX | GP0 | UART Output |
-| UART RX | GP1 | UART Input |
 
 ## Protocol
 
@@ -269,7 +267,7 @@ Use the hardware verification scripts to test your board:
 
 1. **Individual Relay Testing**: Interactive test for each relay
 2. **Peripheral Testing**: Test buzzer, LED, and other components
-3. **UART Testing**: Verify serial communication
+3. **Serial Testing**: Verify USB serial communication
 4. **Comprehensive Testing**: Automated verification of all pins
 
 ## Requirements
