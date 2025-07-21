@@ -330,14 +330,19 @@ class RelayController:
         """
         return self._send_command("VERSION")
 
-    def get_help(self) -> str:
+    def get_help(self) -> list[str]:
         """
-        Get detailed help text from the board.
+        Get list of available commands from the board.
 
         Returns:
-            str: Multi-line help text with command descriptions
+            list[str]: List of available command names
         """
-        return self._send_command("HELP")
+        response = self._send_command("HELP")
+        # Response format: "Commands: PING,STATUS,ON,OFF,..."
+        if response.startswith("Commands: "):
+            command_str = response[10:]  # Remove "Commands: " prefix
+            return command_str.split(",")
+        return []
 
     def save_state(self) -> None:
         """

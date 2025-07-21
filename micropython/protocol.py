@@ -494,8 +494,8 @@ class ProtocolParser:
             return self.format_success_response(FIRMWARE_VERSION)
 
         elif command == "HELP":
-            # Return detailed help text
-            help_text = self.get_help_text()
+            # Return list of available commands
+            help_text = "Commands: PING,STATUS,ON,OFF,ALL,SET,PULSE,INFO,UID,NAME,GET,BEEP,BUZZ,TONE,VERSION,HELP,SAVE,LOAD,CLEAR"
             return self.format_success_response(help_text)
 
         elif command == "NAME":
@@ -614,44 +614,6 @@ class ProtocolParser:
             "last_command_time": self.last_command_time,
         }
 
-    def get_help_text(self):
-        """
-        Generate detailed help text for all commands.
-        
-        Returns:
-            str: Multi-line help text with command descriptions
-        """
-        help_lines = [
-            "RELAY CONTROL:",
-            "  ON <n>        - Turn on relay n (1-8)",
-            "  OFF <n>       - Turn off relay n (1-8)",
-            "  ALL ON/OFF    - Control all relays",
-            "  SET <pattern> - Set relay pattern (e.g. 10110011)",
-            "  PULSE <n> <ms>- Pulse relay for duration",
-            "",
-            "STATUS:",
-            "  STATUS        - Get relay states (8-bit binary)",
-            "  INFO          - Board info with UID",
-            "  UID           - Get unique ID only",
-            "  VERSION       - Firmware version",
-            "  PING          - Test connection",
-            "",
-            "CONFIG:",
-            "  NAME <n> <txt>- Set relay name",
-            "  GET NAME <n>  - Get relay name",
-            "  SAVE          - Save relay states",
-            "  LOAD          - Restore saved states",
-            "  CLEAR         - Clear saved states",
-            "",
-            "BUZZER:",
-            "  BEEP [ms]     - Short beep (default 100ms)",
-            "  BUZZ ON/OFF   - Continuous buzzer",
-            "  TONE <hz> <ms>- Play frequency",
-            "",
-            "Use \\n to terminate commands"
-        ]
-        return '\\n'.join(help_lines)
-    
     def get_info(self):
         """
         Get protocol and board information.

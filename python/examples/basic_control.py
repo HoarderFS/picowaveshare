@@ -51,13 +51,6 @@ def main():
         print(f"Version: {info.get('version', 'Unknown')}")
         print(f"Channels: {info.get('channels', 'Unknown')}")
         print(f"UID: {info.get('uid', 'Unknown')}")
-        
-        # Show available commands
-        print("\n" + "="*50)
-        print("AVAILABLE COMMANDS:")
-        print("="*50)
-        print(controller.get_help())
-        print("="*50)
 
         # Get initial status
         print("\nInitial relay status:")

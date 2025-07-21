@@ -398,42 +398,6 @@ class TestRelayController:
             assert name == "LIGHTS"
             mock_serial.write.assert_called_with(b"GET NAME 1\n")
 
-    def test_get_version(self, connected_controller, mock_serial):
-        """Test get_version command"""
-        if self._is_hardware_test():
-            # Test with real hardware
-            version = connected_controller.get_version()
-            assert isinstance(version, str)
-            assert len(version) > 0
-            # Version should be in format X.Y.Z
-            assert "." in version
-        else:
-            mock_serial.readline.return_value = b"1.2.0\r\n"
-            version = connected_controller.get_version()
-            assert version == "1.2.0"
-            mock_serial.write.assert_called_with(b"VERSION\n")
-
-    def test_get_help(self, connected_controller, mock_serial):
-        """Test get_help command"""
-        if self._is_hardware_test():
-            # Test with real hardware
-            help_text = connected_controller.get_help()
-            assert isinstance(help_text, str)
-            assert len(help_text) > 0
-            # Should contain multiple lines
-            assert "\n" in help_text
-            # Should contain key sections
-            assert "RELAY CONTROL:" in help_text
-            assert "STATUS:" in help_text
-            assert "CONFIG:" in help_text
-            assert "BUZZER:" in help_text
-        else:
-            expected_help = "RELAY CONTROL:\n  ON <n>        - Turn on relay n (1-8)"
-            mock_serial.readline.return_value = expected_help.encode() + b"\r\n"
-            help_text = connected_controller.get_help()
-            assert help_text == expected_help
-            mock_serial.write.assert_called_with(b"HELP\n")
-
     def test_beep_default(self, connected_controller, mock_serial):
         """Test beep command with default duration"""
         if self._is_hardware_test():

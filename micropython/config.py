@@ -4,7 +4,7 @@ Configuration file for Waveshare Pico Relay B board.
 Contains pin mappings, constants, hardware-specific settings, and persistent storage
 functions for relay names and states. Supports automatic state restoration on boot.
 
-Firmware Version: 1.2.0 - Improved HELP command with detailed descriptions
+Firmware Version: 1.1.0 - Added VERSION, HELP, and state persistence commands
 """
 
 import json
@@ -15,7 +15,7 @@ import machine
 # Board identification
 BOARD_NAME = "Waveshare Pico Relay B"
 BOARD_VERSION = "1.0"
-FIRMWARE_VERSION = "1.2.0"
+FIRMWARE_VERSION = "1.1.0"
 
 # Relay pin mappings (GPIO numbers)
 # Based on hardware verification tests
