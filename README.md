@@ -2,6 +2,9 @@
 
 A Python library for controlling the Waveshare Pico Relay B board using MicroPython on the board and a Python library for ASCII protocol communication.
 
+![Waveshare Pico Relay B - Bare Board](pics/pico-relay-b-bare-board.jpg)
+![Waveshare Pico Relay B - With Case](pics/pico-relay-b-with-case.jpg)
+
 ## Hardware
 
 - **Board**: Waveshare Pico Relay B (8-channel relay board)
