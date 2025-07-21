@@ -525,11 +525,11 @@ VERSION\n
 **Example:**
 ```
 > VERSION
-< 1.1.0
+< 1.2.0
 ```
 
-### 17. HELP - List Available Commands
-Returns a list of all available commands.
+### 17. HELP - Display Command Help
+Returns detailed help text showing all available commands with descriptions and syntax.
 
 **Command:**
 ```
@@ -538,13 +538,39 @@ HELP\n
 
 **Response:**
 ```
-Commands: <command_list>\n
+<multi-line help text>\n
 ```
 
 **Example:**
 ```
 > HELP
-< Commands: PING,STATUS,ON,OFF,ALL,SET,PULSE,INFO,UID,NAME,GET,BEEP,BUZZ,TONE,VERSION,HELP,SAVE,LOAD,CLEAR
+< RELAY CONTROL:
+<   ON <n>        - Turn on relay n (1-8)
+<   OFF <n>       - Turn off relay n (1-8)
+<   ALL ON/OFF    - Control all relays
+<   SET <pattern> - Set relay pattern (e.g. 10110011)
+<   PULSE <n> <ms>- Pulse relay for duration
+< 
+< STATUS:
+<   STATUS        - Get relay states (8-bit binary)
+<   INFO          - Board info with UID
+<   UID           - Get unique ID only
+<   VERSION       - Firmware version
+<   PING          - Test connection
+< 
+< CONFIG:
+<   NAME <n> <txt>- Set relay name
+<   GET NAME <n>  - Get relay name
+<   SAVE          - Save relay states
+<   LOAD          - Restore saved states
+<   CLEAR         - Clear saved states
+< 
+< BUZZER:
+<   BEEP [ms]     - Short beep (default 100ms)
+<   BUZZ ON/OFF   - Continuous buzzer
+<   TONE <hz> <ms>- Play frequency
+< 
+< Use \n to terminate commands
 ```
 
 ## State Persistence Commands
@@ -748,10 +774,15 @@ Each command should result in:
 
 **Board Compatibility**: Waveshare Pico Relay B v1.0
 
-**Firmware Version**: 1.1.0
+**Firmware Version**: 1.2.0
 
 ### Version History
-- **1.1.0** (Current)
+- **1.2.0** (Current)
+  - Improved HELP command with detailed descriptions
+  - Removed unused UART code
+  - Clarified USB CDC serial communication
+
+- **1.1.0**
   - Added VERSION command
   - Added HELP command
   - Added state persistence (SAVE/LOAD/CLEAR)

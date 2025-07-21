@@ -293,7 +293,7 @@ Use the hardware verification scripts to test your board:
 
 ## Current Status
 
-**Firmware Version: 1.1.0** - Production Ready
+**Firmware Version: 1.2.0** - Production Ready
 
 **Core Functionality**
 - All 8 relays fully controllable (GP14-GP21)
