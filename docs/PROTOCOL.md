@@ -330,17 +330,17 @@ UID\n
 - UID remains constant for the lifetime of the chip
 - Can be used for device identification and tracking
 
-### 11. NAME - Set Relay Name
-Sets a persistent human-readable name for a relay. Names are stored in flash memory and persist across power cycles.
+### 11. NAME - Set or Clear Relay Name
+Sets a persistent human-readable name for a relay, or clears it. Names are stored in flash memory and persist across power cycles.
 
 **Command:**
 ```
-NAME <relay_number> <name>\n
+NAME <relay_number> [<name>]\n
 ```
 
 **Parameters:**
 - `relay_number`: Integer 1-8 (relay to name)
-- `name`: String name (1-32 characters, no spaces in command)
+- `name`: String name (1-32 characters, no spaces in command) - Optional
 
 **Response:**
 - Success: `OK\n`
@@ -354,8 +354,13 @@ NAME <relay_number> <name>\n
 > NAME 2 FAN
 < OK
 
-> NAME 3 PUMP
+> NAME 1
 < OK
+(Clears relay 1 name)
+
+> GET NAME 1
+< 
+(Empty response indicates no name set)
 ```
 
 ### 12. GET NAME - Get Relay Name
@@ -388,7 +393,7 @@ GET NAME <relay_number>\n
 **Storage Notes:**
 - Names are stored in `relay_config.json` on the device's LittleFS filesystem
 - Names persist across power cycles and firmware updates
-- Default names are "Relay 1", "Relay 2", etc.
+- Default/cleared names are empty strings
 - Maximum name length is 32 characters
 - Names are case-sensitive
 

@@ -245,15 +245,18 @@ class RelayController:
         """
         self._send_command("PULSE", relay_num, duration_ms)
 
-    def set_relay_name(self, relay_num: int, name: str) -> None:
+    def set_relay_name(self, relay_num: int, name: str | None = None) -> None:
         """
-        Set persistent name for a relay
+        Set persistent name for a relay, or clear it
 
         Args:
             relay_num: Relay number (1-8)
-            name: Name string (1-32 characters)
+            name: Name string (1-32 characters), or None to clear (empty string)
         """
-        self._send_command("NAME", relay_num, name)
+        if name is None:
+            self._send_command("NAME", relay_num)
+        else:
+            self._send_command("NAME", relay_num, name)
 
     def get_relay_name(self, relay_num: int) -> str:
         """
@@ -311,7 +314,7 @@ class RelayController:
             try:
                 name = self.get_relay_name(relay_num)
             except Exception:
-                name = f"Relay {relay_num}"
+                name = ""
 
             result[relay_num] = {
                 "name": name,

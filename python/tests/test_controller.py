@@ -384,6 +384,21 @@ class TestRelayController:
             mock_serial.readline.return_value = b"OK\r\n"
             connected_controller.set_relay_name(1, "LIGHTS")
             mock_serial.write.assert_called_with(b"NAME 1 LIGHTS\n")
+            
+    def test_reset_relay_name(self, connected_controller, mock_serial):
+        """Test resetting relay name to empty string"""
+        if self._is_hardware_test():
+            # Test with real hardware
+            connected_controller.set_relay_name(1)  # Clear the name
+            name = connected_controller.get_relay_name(1)
+            assert name == ""
+        else:
+            mock_serial.readline.side_effect = [b"OK\r\n", b"\r\n"]
+            connected_controller.set_relay_name(1)  # Clear the name
+            mock_serial.write.assert_called_with(b"NAME 1\n")
+            # Verify name was cleared
+            name = connected_controller.get_relay_name(1)
+            assert name == ""
 
     def test_get_relay_name(self, connected_controller, mock_serial):
         """Test get_relay_name command"""

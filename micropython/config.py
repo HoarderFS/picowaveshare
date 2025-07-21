@@ -4,7 +4,7 @@ Configuration file for Waveshare Pico Relay B board.
 Contains pin mappings, constants, hardware-specific settings, and persistent storage
 functions for relay names and states. Supports automatic state restoration on boot.
 
-Firmware Version: 1.1.0 - Added VERSION, HELP, and state persistence commands
+Firmware Version: 1.1.1 - Added NAME command reset functionality
 """
 
 import json
@@ -15,7 +15,7 @@ import machine
 # Board identification
 BOARD_NAME = "Waveshare Pico Relay B"
 BOARD_VERSION = "1.0"
-FIRMWARE_VERSION = "1.1.0"
+FIRMWARE_VERSION = "1.1.1"
 
 # Relay pin mappings (GPIO numbers)
 # Based on hardware verification tests
@@ -217,7 +217,7 @@ def load_relay_config():
     """
     config_file = "relay_config.json"
     default_config = {
-        "names": {str(i): f"Relay {i}" for i in range(1, RELAY_COUNT + 1)},
+        "names": {str(i): "" for i in range(1, RELAY_COUNT + 1)},
         "settings": {"auto_save": True, "created_time": 0},
         "states": {str(i): 0 for i in range(1, RELAY_COUNT + 1)},
         "auto_load": True,
@@ -271,13 +271,15 @@ def get_relay_name(relay_num):
         relay_num (int): Relay number (1-8)
 
     Returns:
-        str: Relay name or default if not found
+        str: Relay name or empty string if not set
     """
     if not is_valid_relay_number(relay_num):
-        return f"Relay {relay_num}"
+        return ""
 
     config = load_relay_config()
-    return config["names"].get(str(relay_num), f"Relay {relay_num}")
+    name = config["names"].get(str(relay_num), "")
+    # Return the stored name (which could be empty string)
+    return name
 
 
 def set_relay_name(relay_num, name):

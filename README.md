@@ -231,11 +231,11 @@ The board uses an ASCII-based protocol for communication. Key commands include:
 - `STATUS` - Get relay status (8-bit binary)
 - `PING` - Test connection (responds with PONG)
 - `INFO` - Get board information with UID
-- `VERSION` - Get firmware version (1.1.0)
+- `VERSION` - Get firmware version (1.1.1)
 - `HELP` - List all available commands
 
 ### Configuration
-- `NAME <relay> <name>` - Set relay name
+- `NAME <relay> [<name>]` - Set relay name (omit name to reset to default)
 - `GET NAME <relay>` - Get relay name
 - `SAVE` - Save current relay states
 - `LOAD` - Load saved relay states
@@ -343,6 +343,8 @@ if boards:
         # Name relays
         controller.set_relay_name(1, "LIGHTS")
         controller.set_relay_name(2, "FAN")
+        # Clear a name
+        controller.set_relay_name(1)  # Now empty string
         
         # Buzzer alerts
         controller.beep()

@@ -144,22 +144,29 @@ class RelayProtocol:
             return f"UID{self.COMMAND_TERMINATOR}"
 
         elif command == "NAME":
-            if len(args) != 2:
+            if len(args) not in [1, 2]:
                 raise RelayValidationError(
-                    "NAME command requires exactly two parameters"
+                    "NAME command requires 1 or 2 parameters"
                 )
-            relay_num, name = args
+            relay_num = args[0]
             if not self.validate_relay_number(relay_num):
                 raise RelayValidationError(f"Invalid relay number: {relay_num}")
-            if (
-                not isinstance(name, str)
-                or len(name) == 0
-                or len(name) > self.NAME_MAX_LENGTH
-            ):
-                raise RelayValidationError(
-                    f"Invalid name: {name} (must be 1-{self.NAME_MAX_LENGTH} characters)"
-                )
-            return f"NAME {relay_num} {name}{self.COMMAND_TERMINATOR}"
+            
+            if len(args) == 1:
+                # Clear name - just relay number
+                return f"NAME {relay_num}{self.COMMAND_TERMINATOR}"
+            else:
+                # Set name
+                name = args[1]
+                if (
+                    not isinstance(name, str)
+                    or len(name) == 0
+                    or len(name) > self.NAME_MAX_LENGTH
+                ):
+                    raise RelayValidationError(
+                        f"Invalid name: {name} (must be 1-{self.NAME_MAX_LENGTH} characters)"
+                    )
+                return f"NAME {relay_num} {name}{self.COMMAND_TERMINATOR}"
 
         elif command == "GET":
             if len(args) != 2:

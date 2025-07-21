@@ -156,7 +156,7 @@ class ProtocolParser:
             "PULSE": 2,  # PULSE <relay_number> <duration_ms>
             "INFO": 0,  # INFO - board information
             "UID": 0,  # UID - unique identifier
-            "NAME": 2,  # NAME <relay_number> <name>
+            "NAME": [1, 2],  # NAME <relay_number> [<name>]
             "GET": 2,  # GET NAME <relay_number>
             "BEEP": [0, 1],  # BEEP or BEEP <duration_ms>
             "BUZZ": 1,  # BUZZ ON or BUZZ OFF
@@ -222,9 +222,11 @@ class ProtocolParser:
                 relay_num = int(parameters[0])
                 if not is_valid_relay_number(relay_num):
                     return False, "INVALID_RELAY_NUMBER"
-                name = parameters[1]
-                if not isinstance(name, str) or len(name) > 32 or len(name) == 0:
-                    return False, "INVALID_PARAMETER"
+                # If name is provided, validate it
+                if len(parameters) == 2:
+                    name = parameters[1]
+                    if not isinstance(name, str) or len(name) > 32:
+                        return False, "INVALID_PARAMETER"
             except ValueError:
                 return False, "INVALID_RELAY_NUMBER"
 
@@ -499,9 +501,14 @@ class ProtocolParser:
             return self.format_success_response(help_text)
 
         elif command == "NAME":
-            # Set relay name: NAME <relay_number> <name>
+            # Set or reset relay name: NAME <relay_number> [<name>]
             relay_num = int(parameters[0])
-            name = parameters[1]
+            if len(parameters) == 1:
+                # Clear the name (empty string)
+                name = ""
+            else:
+                # Set custom name
+                name = parameters[1]
             if set_relay_name(relay_num, name):
                 return self.format_success_response()
             else:
