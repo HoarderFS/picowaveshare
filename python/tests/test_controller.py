@@ -481,12 +481,12 @@ class TestRelayController:
                 b"10101010\r\n",  # STATUS response
                 b"LIGHT1\r\n",  # GET NAME 1 response
                 b"LIGHT2\r\n",  # GET NAME 2 response
-                b"Relay 3\r\n",  # GET NAME 3 response (default)
-                b"Relay 4\r\n",  # GET NAME 4 response
-                b"Relay 5\r\n",  # GET NAME 5 response
-                b"Relay 6\r\n",  # GET NAME 6 response
-                b"Relay 7\r\n",  # GET NAME 7 response
-                b"Relay 8\r\n",  # GET NAME 8 response
+                b"\r\n",  # GET NAME 3 response (default empty)
+                b"\r\n",  # GET NAME 4 response
+                b"\r\n",  # GET NAME 5 response
+                b"\r\n",  # GET NAME 6 response
+                b"\r\n",  # GET NAME 7 response
+                b"\r\n",  # GET NAME 8 response
             ]
 
             result = connected_controller.get_relay_states_dict()
@@ -494,12 +494,12 @@ class TestRelayController:
             expected = {
                 1: {"name": "LIGHT1", "state": False, "state_str": "OFF"},
                 2: {"name": "LIGHT2", "state": True, "state_str": "ON"},
-                3: {"name": "Relay 3", "state": False, "state_str": "OFF"},
-                4: {"name": "Relay 4", "state": True, "state_str": "ON"},
-                5: {"name": "Relay 5", "state": False, "state_str": "OFF"},
-                6: {"name": "Relay 6", "state": True, "state_str": "ON"},
-                7: {"name": "Relay 7", "state": False, "state_str": "OFF"},
-                8: {"name": "Relay 8", "state": True, "state_str": "ON"},
+                3: {"name": "", "state": False, "state_str": "OFF"},
+                4: {"name": "", "state": True, "state_str": "ON"},
+                5: {"name": "", "state": False, "state_str": "OFF"},
+                6: {"name": "", "state": True, "state_str": "ON"},
+                7: {"name": "", "state": False, "state_str": "OFF"},
+                8: {"name": "", "state": True, "state_str": "ON"},
             }
             assert result == expected
 
@@ -513,17 +513,17 @@ class TestRelayController:
             mock_serial.readline.side_effect = [
                 b"00000000\r\n",  # STATUS response
                 b"ERROR:INVALID_COMMAND\r\n",  # GET NAME 1 error
-                b"Relay 2\r\n",  # GET NAME 2 response
-                b"Relay 3\r\n",  # GET NAME 3 response
-                b"Relay 4\r\n",  # GET NAME 4 response
-                b"Relay 5\r\n",  # GET NAME 5 response
-                b"Relay 6\r\n",  # GET NAME 6 response
-                b"Relay 7\r\n",  # GET NAME 7 response
-                b"Relay 8\r\n",  # GET NAME 8 response
+                b"\r\n",  # GET NAME 2 response
+                b"\r\n",  # GET NAME 3 response
+                b"\r\n",  # GET NAME 4 response
+                b"\r\n",  # GET NAME 5 response
+                b"\r\n",  # GET NAME 6 response
+                b"\r\n",  # GET NAME 7 response
+                b"\r\n",  # GET NAME 8 response
             ]
 
             result = connected_controller.get_relay_states_dict()
 
-            # Should use default name when error occurs
-            assert result[1]["name"] == "Relay 1"
-            assert result[2]["name"] == "Relay 2"
+            # Should use empty string when error occurs
+            assert result[1]["name"] == ""
+            assert result[2]["name"] == ""

@@ -235,7 +235,7 @@ The board uses an ASCII-based protocol for communication. Key commands include:
 - `HELP` - List all available commands
 
 ### Configuration
-- `NAME <relay> [<name>]` - Set relay name (omit name to reset to default)
+- `NAME <relay> [<name>]` - Set relay name (omit name to clear)
 - `GET NAME <relay>` - Get relay name
 - `SAVE` - Save current relay states
 - `LOAD` - Load saved relay states

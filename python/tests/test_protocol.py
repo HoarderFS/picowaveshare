@@ -159,16 +159,23 @@ class TestRelayProtocol:
 
     def test_encode_name_command(self):
         """Test NAME command encoding"""
-        # Valid NAME commands
+        # Valid NAME commands with name
         assert self.protocol.encode_command("NAME", 1, "TEST") == "NAME 1 TEST\n"
         assert self.protocol.encode_command("name", 8, "LIGHT") == "NAME 8 LIGHT\n"
+        
+        # Valid NAME command to clear (single parameter)
+        assert self.protocol.encode_command("NAME", 1) == "NAME 1\n"
+        assert self.protocol.encode_command("name", 8) == "NAME 8\n"
 
         # Invalid NAME commands
         with pytest.raises(RelayValidationError, match="Invalid relay number"):
             self.protocol.encode_command("NAME", 9, "TEST")
+            
+        with pytest.raises(RelayValidationError, match="Invalid relay number"):
+            self.protocol.encode_command("NAME", 9)  # Invalid relay for clear
 
         with pytest.raises(RelayValidationError, match="Invalid name"):
-            self.protocol.encode_command("NAME", 1, "")  # Empty name
+            self.protocol.encode_command("NAME", 1, "")  # Empty name when setting
 
         with pytest.raises(RelayValidationError, match="Invalid name"):
             self.protocol.encode_command("NAME", 1, "A" * 33)  # Too long
